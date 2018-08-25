@@ -10,4 +10,5 @@ WORKDIR /
 COPY --from=build /app/tr /tr
 
 # and set the entry command
+EXPOSE 80
 CMD ["/tr", "0.0.0.0:80"]
