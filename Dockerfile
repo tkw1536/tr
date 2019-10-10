@@ -1,5 +1,5 @@
 # build the server
-FROM golang:1.8 as build
+FROM golang as build
 ADD tr.go /app/tr.go
 WORKDIR /app/
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/tr tr.go
