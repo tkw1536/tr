@@ -1,5 +1,19 @@
 # build the server
-FROM golang as build
+FROM golang:alpine as build
+
+# Create www-data
+ENV USER=www-data
+ENV UID=82
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    "${USER}"
+
+# build the app
 ADD tr.go /app/tr.go
 WORKDIR /app/
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/tr tr.go
@@ -7,8 +21,15 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/tr tr.go
 # add it into a scratch image
 FROM scratch
 WORKDIR /
+
+# add the user
+COPY --from=build /etc/passwd /etc/passwd
+COPY --from=build /etc/group /etc/group
+
+# add the app
 COPY --from=build /app/tr /tr
 
 # and set the entry command
-EXPOSE 80
-CMD ["/tr", "0.0.0.0:80"]
+EXPOSE 8080
+USER www-data:www-data
+CMD ["/tr", "0.0.0.0:8080"]

@@ -5,7 +5,7 @@ services:
 - docker
 
 install:
-- docker pull golang
+- docker pull golang:alpine
 - |
     function assert_redirect() {
         GOT=`curl -w "%{url_effective}\n" -I -L -s -S "$1" -o /dev/null`;
@@ -22,7 +22,7 @@ install:
 
 script:
 - docker build -t tkw1536/tr .
-- docker run -d --name=smoke -p 8080:80 -e TARGET=https://example.com/subdirectory tkw1536/tr
+- docker run -d --name=smoke -p 8080:8080 -e TARGET=https://example.com/subdirectory tkw1536/tr
 - sleep 10
 - assert_redirect "http://localhost:8080/" "https://example.com/subdirectory/" 
 - assert_redirect "http://localhost:8080/path/" "https://example.com/subdirectory/path/"
