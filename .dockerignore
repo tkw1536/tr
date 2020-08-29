@@ -1,3 +1,5 @@
-.travis.yml
-LICENSE
-README.md
+*
+!*.go
+!cmd
+!go.mod
+!go.sum

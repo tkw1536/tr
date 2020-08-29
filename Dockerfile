@@ -14,9 +14,9 @@ RUN adduser \
     "${USER}"
 
 # build the app
-ADD tr.go /app/tr.go
+ADD . /app/
 WORKDIR /app/
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/tr tr.go
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/tr /app/cmd/redirect/
 
 # add it into a scratch image
 FROM scratch
