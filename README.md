@@ -1,6 +1,6 @@
 # tr -- Tiny Redirect
 
-[![Build Status](https://travis-ci.com/tkw1536/tr.svg?branch=master)](https://travis-ci.com/tkw1536/tr)
+![CI Status](https://github.com/tkw1536/ggman/workflows/CI/badge.svg)
 [![Docker Hub](https://img.shields.io/docker/automated/tkw01536/tr)](https://hub.docker.com/r/tkw01536/tr/)
 
 This repository contains a tiny http server written in go. 
