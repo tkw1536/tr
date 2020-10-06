@@ -1,6 +1,6 @@
 # tr -- Tiny Redirect
 
-![CI Status](https://github.com/tkw1536/ggman/workflows/CI/badge.svg)
+![CI Status](https://github.com/tkw1536/tr/workflows/CI/badge.svg)
 
 This repository contains a tiny http server written in go. 
 All it can do is redirect unconditionally to a url given as an environment variable. 
