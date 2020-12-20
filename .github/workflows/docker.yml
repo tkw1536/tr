@@ -12,7 +12,7 @@ jobs:
       - uses: docker/build-push-action@v1
         with:
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: ${{ github.repository }}/tr
+          password: ${{ secrets.CR_PAT }}
+          registry: ghcr.io
+          repository: tkw1536/tr
           tags: latest
