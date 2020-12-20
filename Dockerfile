@@ -1,7 +1,6 @@
-# build the server
-FROM golang:alpine as build
+FROM alpine as permission
 
-# Create www-data
+# create
 ENV USER=www-data
 ENV UID=82
 RUN adduser \
@@ -13,6 +12,9 @@ RUN adduser \
     --uid "${UID}" \
     "${USER}"
 
+# build the server
+FROM golang as build
+
 # build the app
 ADD . /app/
 WORKDIR /app/
@@ -23,8 +25,8 @@ FROM scratch
 WORKDIR /
 
 # add the user
-COPY --from=build /etc/passwd /etc/passwd
-COPY --from=build /etc/group /etc/group
+COPY --from=permission /etc/passwd /etc/passwd
+COPY --from=permission /etc/group /etc/group
 
 # add the app
 COPY --from=build /app/tr /tr
