@@ -11,6 +11,7 @@ func TestRedirect_ServeHTTP(t *testing.T) {
 	type fields struct {
 		Target    string
 		Permanent bool
+		Overrides map[string]string
 	}
 	tests := []struct {
 		name         string
@@ -19,17 +20,21 @@ func TestRedirect_ServeHTTP(t *testing.T) {
 		wantCode     int
 		wantLocation string
 	}{
-		{"non-permanent redirect /", fields{"https://example.com/subdirectory", false}, "/", http.StatusTemporaryRedirect, "https://example.com/subdirectory/"},
-		{"permanent redirect /", fields{"https://example.com/subdirectory", true}, "/", http.StatusPermanentRedirect, "https://example.com/subdirectory/"},
+		{"non-permanent redirect /", fields{"https://example.com/subdirectory", false, nil}, "/", http.StatusTemporaryRedirect, "https://example.com/subdirectory/"},
+		{"permanent redirect /", fields{"https://example.com/subdirectory", true, nil}, "/", http.StatusPermanentRedirect, "https://example.com/subdirectory/"},
 
-		{"non-permanent redirect /path/", fields{"https://example.com/subdirectory", false}, "/path/", http.StatusTemporaryRedirect, "https://example.com/subdirectory/path/"},
-		{"permanent redirect /path/", fields{"https://example.com/subdirectory", true}, "/path/", http.StatusPermanentRedirect, "https://example.com/subdirectory/path/"},
+		{"non-permanent redirect /path/", fields{"https://example.com/subdirectory", false, nil}, "/path/", http.StatusTemporaryRedirect, "https://example.com/subdirectory/path/"},
+		{"permanent redirect /path/", fields{"https://example.com/subdirectory", true, nil}, "/path/", http.StatusPermanentRedirect, "https://example.com/subdirectory/path/"},
+
+		{"non-permanent overwrite redirect", fields{"https://example.com/subdirectory", false, map[string]string{"/overwrite": "https://overwrite/"}}, "/overwrite", http.StatusTemporaryRedirect, "https://overwrite/"},
+		{"non-permanent overwrite redirect", fields{"https://example.com/subdirectory", true, map[string]string{"/overwrite": "https://overwrite/"}}, "/overwrite", http.StatusPermanentRedirect, "https://overwrite/"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			redirect := Redirect{
 				Target:    tt.fields.Target,
 				Permanent: tt.fields.Permanent,
+				Overrides: tt.fields.Overrides,
 			}
 
 			// make a test request
