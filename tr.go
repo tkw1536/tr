@@ -1,4 +1,4 @@
-// Package tr contains a tiny redirect server implementation
+// Package tr provides facilities for a tiny redirect server.
 package tr
 
 import "net/http"
