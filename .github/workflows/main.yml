@@ -23,7 +23,7 @@ jobs:
         - uses: actions/checkout@v2
         - uses: actions/setup-go@v2
         - name: Run 'test.sh'
-          run: bash test.sh tkw1536/tr
+          run: bash test.sh ghcr.io/tkw1536/tr:latest
   build:
     runs-on: ubuntu-latest
     steps:
