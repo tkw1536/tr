@@ -5,7 +5,7 @@
 This repository contains a tiny http server written in go. 
 It implements an HTTP server that answers every incoming request with a redirect.
 
-  TARGET=<TARGET> [ABSOLUTE=1] [PERMANENT=1] [OVERRIDES=/path/to/.json] redirect <bindAddress>
+```TARGET=<TARGET> [ABSOLUTE=1] [PERMANENT=1] [OVERRIDES=/path/to/.json] redirect <bindAddress>```
 
 The address to bind to is specified by the `bindAddress` parameter.
 
