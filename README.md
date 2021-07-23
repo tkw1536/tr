@@ -35,8 +35,6 @@ docker run -e TARGET=http://example.com -p 8080:8080 ghcr.io/tkw1536/tr:latest
 
 All `redirect` executable parameters can be passed using standard environment variables.
 
-For legacy reasons this image is also available on DockerHub as the automated build [tkw01536/tr](https://hub.docker.com/r/tkw01536/tr/). 
-
 ## Building
 
 This package can be built using standard go tools.
