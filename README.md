@@ -71,6 +71,12 @@ bash test.sh ghcr.io/tkw1536/tr:latest
 
 This will build the docker image and then test it.
 
+## Changelog
+
+### Version 1.0.0 (Released [Apr 11 2022](https://github.com/tkw1536/tr/releases/tag/v1.0.0))
+
+- initial release
+
 ## License
 
 This project is released into the public domain using the [Unlicense](./LICENSE).
